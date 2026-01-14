@@ -1,4 +1,4 @@
-# 🍽️ Recipe Management API – Spring Boot Project
+# 🍽️ Recipe Management REST API – Spring Boot
 
 ## 📌 Project Description
 
@@ -18,7 +18,7 @@ The API is designed as a **backend-only system**, focusing on business logic, va
 * **H2 Database** (in-memory, for development)
 * **JUnit 5**
 * **Mockito**
-* **Maven**
+* **Gradle**
 * **Postman** (for API testing)
 
 ---
@@ -84,7 +84,8 @@ Relationships between entities are properly defined using JPA annotations.
 
 ## 🧪 Unit Testing
 
-Unit tests are implemented using **JUnit 5** and **Mockito**.
+All tests are executed using Gradle (`./gradlew test`) and generate an HTML test report under `build/reports/tests/test/index.html`.
+
 
 Covered layers:
 
@@ -119,7 +120,7 @@ Configuration is located in `application.properties`:
 5. Access the API via:
 
    ```
-   http://localhost:8081
+   http://localhost:8080
    ```
 6. Use **Postman** or **Insomnia** to test endpoints
 
