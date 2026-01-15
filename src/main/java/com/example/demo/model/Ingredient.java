@@ -3,6 +3,9 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
@@ -15,6 +18,10 @@ public class Ingredient {
     @Column(nullable = false)
     private String name;
 
+    // ✅ OPTIONAL: bidirectional mapping
+    @ManyToMany(mappedBy = "ingredientEntities")
+    private Set<Recipe> recipes = new HashSet<>();
+
     public Ingredient() {}
 
     public Ingredient(String name) {
@@ -25,4 +32,7 @@ public class Ingredient {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public Set<Recipe> getRecipes() { return recipes; }
+    public void setRecipes(Set<Recipe> recipes) { this.recipes = recipes; }
 }

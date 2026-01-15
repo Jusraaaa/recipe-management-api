@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "recipes")
 public class Recipe {
@@ -16,6 +19,7 @@ public class Recipe {
     @Column(nullable = false)
     private String name;
 
+    // ✅ E LËMË si tekst (mos me prish kodin ekzistues)
     @NotBlank(message = "Ingredients are required")
     @Column(nullable = false, length = 2000)
     private String ingredients;
@@ -32,12 +36,20 @@ public class Recipe {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
+    // ✅ NEW: Real relationship Recipe <-> Ingredient
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_ingredients",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredientEntities = new HashSet<>();
+
     public Recipe() {
     }
 
     public Long getId() { return id; }
-    // rekomandim: mos e përdor setId, po s’po ta fshij nëse e don
-     public void setId(Long id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -53,4 +65,9 @@ public class Recipe {
 
     public CategoryEntity getCategory() { return category; }
     public void setCategory(CategoryEntity category) { this.category = category; }
+
+    public Set<Ingredient> getIngredientEntities() { return ingredientEntities; }
+    public void setIngredientEntities(Set<Ingredient> ingredientEntities) {
+        this.ingredientEntities = ingredientEntities;
+    }
 }

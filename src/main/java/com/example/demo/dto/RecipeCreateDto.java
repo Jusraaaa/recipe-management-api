@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 public class RecipeCreateDto {
 
     @NotBlank(message = "Name is required")
@@ -21,6 +23,9 @@ public class RecipeCreateDto {
     @NotNull(message = "Category id is required")
     private Long categoryId;
 
+    // ✅ NEW: Ingredient IDs for real relationship
+    private List<Long> ingredientIds;
+
     public RecipeCreateDto() {}
 
     public String getName() { return name; }
@@ -37,4 +42,7 @@ public class RecipeCreateDto {
 
     public Long getCategoryId() { return categoryId; }
     public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
+    public List<Long> getIngredientIds() { return ingredientIds; }
+    public void setIngredientIds(List<Long> ingredientIds) { this.ingredientIds = ingredientIds; }
 }

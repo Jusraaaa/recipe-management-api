@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 public class RecipeUpdateDto {
 
     @NotBlank(message = "Name is required")
@@ -15,53 +17,32 @@ public class RecipeUpdateDto {
     @NotBlank(message = "Steps are required")
     private String steps;
 
-    // int s'mundet me qenë null → @Min është e mjaftueshme
     @Min(value = 1, message = "Preparation time must be at least 1")
     private int preparationTime;
 
-    // vetëm ID, jo entity
     @NotNull(message = "Category id is required")
     private Long categoryId;
 
+    // ✅ NEW: Ingredient IDs for real relationship
+    private List<Long> ingredientIds;
+
     public RecipeUpdateDto() {}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getIngredients() { return ingredients; }
+    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
 
-    public String getIngredients() {
-        return ingredients;
-    }
+    public String getSteps() { return steps; }
+    public void setSteps(String steps) { this.steps = steps; }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
+    public int getPreparationTime() { return preparationTime; }
+    public void setPreparationTime(int preparationTime) { this.preparationTime = preparationTime; }
 
-    public String getSteps() {
-        return steps;
-    }
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
 
-    public void setSteps(String steps) {
-        this.steps = steps;
-    }
-
-    public int getPreparationTime() {
-        return preparationTime;
-    }
-
-    public void setPreparationTime(int preparationTime) {
-        this.preparationTime = preparationTime;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+    public List<Long> getIngredientIds() { return ingredientIds; }
+    public void setIngredientIds(List<Long> ingredientIds) { this.ingredientIds = ingredientIds; }
 }
