@@ -74,7 +74,7 @@ Relationships between entities are properly defined using JPA annotations.
 * `GET /recipes/{id}` – Get recipe by ID
 * `PUT /recipes/{id}` – Update recipe
 * `DELETE /recipes/{id}` – Delete recipe
-* G`ET /recipes/{id}/average-rating`– Get average rating for a recipe
+* `GET /recipes/{id}/average-rating`– Get average rating for a recipe
 
 
 ### Review
