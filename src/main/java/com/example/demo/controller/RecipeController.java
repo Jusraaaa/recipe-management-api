@@ -30,14 +30,18 @@ public class RecipeController {
         return RecipeMapper.toResponseDto(saved);
     }
 
-    // READ ALL
+    // READ ALL (+ sorting)
     @GetMapping
-    public List<RecipeResponseDto> getAll() {
-        return recipeService.getAll()
+    public List<RecipeResponseDto> getAll(
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String dir
+    ) {
+        return recipeService.getAllSorted(sortBy, dir)
                 .stream()
                 .map(RecipeMapper::toResponseDto)
                 .toList();
     }
+
 
     // READ BY ID
     @GetMapping("/{id}")

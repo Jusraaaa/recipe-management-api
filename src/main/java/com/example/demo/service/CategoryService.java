@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.CategoryNotFoundException;
 import com.example.demo.model.CategoryEntity;
 import com.example.demo.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class CategoryService {
 
     public CategoryEntity getById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category me id=" + id + " nuk u gjet"));
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     public CategoryEntity update(Long id, CategoryEntity updated) {

@@ -24,6 +24,11 @@ public class Review {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User reviewer;
+
     public Review() {}
 
     public Long getId() { return id; }
@@ -36,4 +41,7 @@ public class Review {
 
     public Recipe getRecipe() { return recipe; }
     public void setRecipe(Recipe recipe) { this.recipe = recipe; }
+
+    public User getReviewer() { return reviewer; }
+    public void setReviewer(User reviewer) { this.reviewer = reviewer; }
 }

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.ReviewCreateDto;
 import com.example.demo.model.Recipe;
 import com.example.demo.model.Review;
+import com.example.demo.model.User;
 import com.example.demo.repository.ReviewRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,9 @@ class ReviewServiceTest {
     @Mock
     private RecipeService recipeService;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private ReviewService reviewService;
 
@@ -33,12 +37,17 @@ class ReviewServiceTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
+        User user = new User();
+        user.setFullName("Test User");
+
         when(recipeService.getById(1L)).thenReturn(recipe);
+        when(userService.getById(1L)).thenReturn(user);
         when(reviewRepository.save(any(Review.class))).thenAnswer(inv -> inv.getArgument(0));
 
         ReviewCreateDto dto = new ReviewCreateDto();
         dto.setComment("Nice!");
         dto.setRating(5);
+        dto.setUserId(1L);
 
         Review saved = reviewService.createForRecipe(1L, dto);
 
@@ -46,8 +55,10 @@ class ReviewServiceTest {
         assertEquals("Nice!", saved.getComment());
         assertEquals(5, saved.getRating());
         assertNotNull(saved.getRecipe());
+        assertNotNull(saved.getReviewer());
 
         verify(recipeService).getById(1L);
+        verify(userService).getById(1L);
         verify(reviewRepository).save(any(Review.class));
     }
 

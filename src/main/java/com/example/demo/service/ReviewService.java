@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.ReviewCreateDto;
 import com.example.demo.model.Recipe;
 import com.example.demo.model.Review;
+import com.example.demo.model.User;
 import com.example.demo.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,25 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final RecipeService recipeService;
+    private final UserService userService; // ✅ NEW
 
-    public ReviewService(ReviewRepository reviewRepository, RecipeService recipeService) {
+    public ReviewService(ReviewRepository reviewRepository,
+                         RecipeService recipeService,
+                         UserService userService) { // ✅ NEW
         this.reviewRepository = reviewRepository;
         this.recipeService = recipeService;
+        this.userService = userService; // ✅ NEW
     }
 
     public Review createForRecipe(Long recipeId, ReviewCreateDto dto) {
         Recipe recipe = recipeService.getById(recipeId);
+        User reviewer = userService.getById(dto.getUserId()); // ✅ NEW
 
         Review review = new Review();
         review.setComment(dto.getComment());
         review.setRating(dto.getRating());
         review.setRecipe(recipe);
+        review.setReviewer(reviewer); // ✅ NEW
 
         return reviewRepository.save(review);
     }
@@ -33,9 +40,9 @@ public class ReviewService {
     public List<Review> getByRecipeId(Long recipeId) {
         return reviewRepository.findByRecipeId(recipeId);
     }
+
     public double getAverageRating(Long recipeId) {
         Double avg = reviewRepository.getAverageRating(recipeId);
         return avg == null ? 0.0 : avg;
     }
-
 }

@@ -13,14 +13,30 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RecipeNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleNotFound(RecipeNotFoundException ex) {
+    private ResponseEntity<Map<String, Object>> buildNotFound(String message) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now().toString());
         body.put("status", 404);
         body.put("error", "Not Found");
-        body.put("message", ex.getMessage());
+        body.put("message", message);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(RecipeNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleRecipeNotFound(RecipeNotFoundException ex) {
+        return buildNotFound(ex.getMessage());
+    }
+
+    // ✅ NEW
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotFound(UserNotFoundException ex) {
+        return buildNotFound(ex.getMessage());
+    }
+
+    // ✅ NEW
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleCategoryNotFound(CategoryNotFoundException ex) {
+        return buildNotFound(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

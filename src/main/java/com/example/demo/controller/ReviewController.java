@@ -39,9 +39,9 @@ public class ReviewController {
                 .toList();
     }
 
-    @GetMapping("/{id}/average-rating")
-    public double getAverageRating(@PathVariable Long id) {
-        return reviewService.getAverageRating(id);
-    }
 
+    @GetMapping("/recipes/{recipeId}/average-rating")
+    public double getAverageRating(@PathVariable Long recipeId) {
+        return reviewService.getAverageRating(recipeId);
+    }
 }

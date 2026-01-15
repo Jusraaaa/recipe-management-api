@@ -52,6 +52,7 @@ class RecipeControllerTest {
         dto.setPreparationTime(10);
         dto.setCategoryId(1L);
 
+        // ✅ Correct mock for create
         Mockito.when(recipeService.create(any(RecipeCreateDto.class)))
                 .thenReturn(fullRecipe(1L));
 
@@ -63,7 +64,9 @@ class RecipeControllerTest {
 
     @Test
     void getAll_shouldReturn200() throws Exception {
-        Mockito.when(recipeService.getAll()).thenReturn(List.of(fullRecipe(1L), fullRecipe(2L)));
+        // ✅ Controller tani thërret getAllSorted(null, null)
+        Mockito.when(recipeService.getAllSorted(isNull(), isNull()))
+                .thenReturn(List.of(fullRecipe(1L), fullRecipe(2L)));
 
         mockMvc.perform(get("/recipes"))
                 .andExpect(status().isOk());
@@ -118,4 +121,16 @@ class RecipeControllerTest {
         mockMvc.perform(get("/recipes/search").param("name", "pan"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void getAll_withSorting_shouldReturn200() throws Exception {
+        Mockito.when(recipeService.getAllSorted(eq("preparationTime"), eq("desc")))
+                .thenReturn(List.of(fullRecipe(1L)));
+
+        mockMvc.perform(get("/recipes")
+                        .param("sortBy", "preparationTime")
+                        .param("dir", "desc"))
+                .andExpect(status().isOk());
+    }
+
 }

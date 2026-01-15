@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UserService {
 
     public User getById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User me id=" + id + " nuk u gjet"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public User update(Long id, User updatedUser) {

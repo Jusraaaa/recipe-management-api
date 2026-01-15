@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ReviewCreateDto;
 import com.example.demo.model.Recipe;
 import com.example.demo.model.Review;
+import com.example.demo.model.User;
 import com.example.demo.service.ReviewService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,14 @@ class ReviewControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
+        User user = new User();
+        // nuk kemi setId() te User, s’na duhet për këtë test
+
         Review r = new Review();
         r.setComment("Great!");
         r.setRating(5);
         r.setRecipe(recipe);
+        r.setReviewer(user); // ✅ NEW
         return r;
     }
 
@@ -45,6 +50,7 @@ class ReviewControllerTest {
         ReviewCreateDto dto = new ReviewCreateDto();
         dto.setComment("Great!");
         dto.setRating(5);
+        dto.setUserId(1L); // ✅ NEW
 
         Mockito.when(reviewService.createForRecipe(eq(1L), any(ReviewCreateDto.class)))
                 .thenReturn(fullReview());
@@ -68,7 +74,7 @@ class ReviewControllerTest {
     void getAverageRating_shouldReturn200() throws Exception {
         Mockito.when(reviewService.getAverageRating(1L)).thenReturn(4.5);
 
-        mockMvc.perform(get("/1/average-rating"))
+        mockMvc.perform(get("/recipes/1/average-rating")) // ✅ FIXED endpoint
                 .andExpect(status().isOk())
                 .andExpect(content().string("4.5"));
     }

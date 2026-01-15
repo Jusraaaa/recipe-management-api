@@ -8,6 +8,7 @@ import com.example.demo.model.CategoryEntity;
 import com.example.demo.model.Recipe;
 import com.example.demo.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -34,6 +35,19 @@ public class RecipeService {
 
     public List<Recipe> getAll() {
         return recipeRepository.findAll();
+    }
+
+    // ✅ NEW: GET ALL with sorting
+    public List<Recipe> getAllSorted(String sortBy, String dir) {
+
+        String sortField = (sortBy == null || sortBy.isBlank()) ? "id" : sortBy;
+        String direction = (dir == null || dir.isBlank()) ? "asc" : dir;
+
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        return recipeRepository.findAll(sort);
     }
 
     public Recipe getById(Long id) {
@@ -63,7 +77,6 @@ public class RecipeService {
         return recipeRepository.findByCategory(category);
     }
 
-    // Filter ma i lehtë: me categoryId
     public List<Recipe> filterByCategoryId(Long categoryId) {
         CategoryEntity category = categoryService.getById(categoryId);
         return recipeRepository.findByCategory(category);
