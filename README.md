@@ -60,6 +60,8 @@ Relationships between entities are properly defined using JPA annotations.
 * Input validation using annotations
 * Custom exceptions with global handling
 * Clean DTO-based API responses
+* Recipe sorting support (by name, preparationTime, etc.)
+* Average rating endpoint for recipes
 
 ---
 
@@ -68,10 +70,12 @@ Relationships between entities are properly defined using JPA annotations.
 ### Recipe
 
 * `POST /recipes` – Create a recipe
-* `GET /recipes` – Get all recipes
+* `GET /recipes?sortBy={field}&dir={asc|desc}` – Get all recipes with sorting
 * `GET /recipes/{id}` – Get recipe by ID
 * `PUT /recipes/{id}` – Update recipe
 * `DELETE /recipes/{id}` – Delete recipe
+* G`ET /recipes/{id}/average-rating`– Get average rating for a recipe
+
 
 ### Review
 
@@ -85,6 +89,7 @@ Relationships between entities are properly defined using JPA annotations.
 ## 🧪 Unit Testing
 
 All tests are executed using Gradle (`./gradlew test`) and generate an HTML test report under `build/reports/tests/test/index.html`.
+Tests also cover sorting functionality and average rating calculation.
 
 
 Covered layers:
@@ -131,3 +136,5 @@ Configuration is located in `application.properties`:
 * This is a **backend-focused academic project**
 * Designed to demonstrate Spring Boot, REST APIs, and clean architecture
 * Project developed as part of the **Programming in Java** course
+* The API supports sorting, filtering, and rating calculations implemented at the service layer.
+
