@@ -20,11 +20,11 @@ public class RecipeService {
 
     private final RecipeRepository recipeRepository;
     private final CategoryService categoryService;
-    private final IngredientRepository ingredientRepository; // ✅ NEW
+    private final IngredientRepository ingredientRepository;
 
     public RecipeService(RecipeRepository recipeRepository,
                          CategoryService categoryService,
-                         IngredientRepository ingredientRepository) { // ✅ NEW
+                         IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.categoryService = categoryService;
         this.ingredientRepository = ingredientRepository;
@@ -37,7 +37,7 @@ public class RecipeService {
         Recipe r = RecipeMapper.toEntity(dto);
         r.setCategory(category);
 
-        // ✅ NEW: link ingredients (real relationship)
+
         if (dto.getIngredientIds() != null && !dto.getIngredientIds().isEmpty()) {
             List<Ingredient> ingredients = ingredientRepository.findAllById(dto.getIngredientIds());
             r.setIngredientEntities(new HashSet<>(ingredients));
@@ -50,7 +50,7 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
-    // GET ALL with sorting
+    // GET ALL me sorting
     public List<Recipe> getAllSorted(String sortBy, String dir) {
 
         String sortField = (sortBy == null || sortBy.isBlank()) ? "id" : sortBy;
@@ -77,7 +77,7 @@ public class RecipeService {
         CategoryEntity category = categoryService.getById(dto.getCategoryId());
         existing.setCategory(category);
 
-        // ✅ NEW: update linked ingredients
+
         if (dto.getIngredientIds() != null) {
             List<Ingredient> ingredients = ingredientRepository.findAllById(dto.getIngredientIds());
             existing.setIngredientEntities(new HashSet<>(ingredients));

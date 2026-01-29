@@ -27,13 +27,13 @@ public class GlobalExceptionHandler {
         return buildNotFound(ex.getMessage());
     }
 
-    // ✅ NEW
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleUserNotFound(UserNotFoundException ex) {
         return buildNotFound(ex.getMessage());
     }
 
-    // ✅ NEW
+
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleCategoryNotFound(CategoryNotFoundException ex) {
         return buildNotFound(ex.getMessage());

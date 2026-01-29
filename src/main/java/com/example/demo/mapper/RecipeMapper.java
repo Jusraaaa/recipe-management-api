@@ -9,7 +9,7 @@ public class RecipeMapper {
 
     private RecipeMapper() {}
 
-    // CREATE DTO -> ENTITY (pa category)
+
     public static Recipe toEntity(RecipeCreateDto dto) {
         Recipe r = new Recipe();
         r.setName(dto.getName());
@@ -19,7 +19,7 @@ public class RecipeMapper {
         return r;
     }
 
-    // UPDATE DTO -> EXISTING ENTITY (pa category)
+
     public static void updateEntity(Recipe existing, RecipeUpdateDto dto) {
         existing.setName(dto.getName());
         existing.setIngredients(dto.getIngredients());
@@ -27,7 +27,7 @@ public class RecipeMapper {
         existing.setPreparationTime(dto.getPreparationTime());
     }
 
-    // ENTITY -> RESPONSE DTO
+
     public static RecipeResponseDto toResponseDto(Recipe recipe) {
         return new RecipeResponseDto(
                 recipe.getId(),
@@ -35,7 +35,7 @@ public class RecipeMapper {
                 recipe.getIngredients(),
                 recipe.getSteps(),
                 recipe.getPreparationTime(),
-                recipe.getCategory().getId() // vetëm id
+                recipe.getCategory().getId()
         );
     }
 }

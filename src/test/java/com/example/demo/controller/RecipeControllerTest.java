@@ -52,7 +52,7 @@ class RecipeControllerTest {
         dto.setPreparationTime(10);
         dto.setCategoryId(1L);
 
-        // ✅ Correct mock for create
+
         Mockito.when(recipeService.create(any(RecipeCreateDto.class)))
                 .thenReturn(fullRecipe(1L));
 
@@ -64,7 +64,7 @@ class RecipeControllerTest {
 
     @Test
     void getAll_shouldReturn200() throws Exception {
-        // ✅ Controller tani thërret getAllSorted(null, null)
+
         Mockito.when(recipeService.getAllSorted(isNull(), isNull()))
                 .thenReturn(List.of(fullRecipe(1L), fullRecipe(2L)));
 

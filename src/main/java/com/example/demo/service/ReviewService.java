@@ -14,25 +14,25 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final RecipeService recipeService;
-    private final UserService userService; // ✅ NEW
+    private final UserService userService;
 
     public ReviewService(ReviewRepository reviewRepository,
                          RecipeService recipeService,
-                         UserService userService) { // ✅ NEW
+                         UserService userService) {
         this.reviewRepository = reviewRepository;
         this.recipeService = recipeService;
-        this.userService = userService; // ✅ NEW
+        this.userService = userService;
     }
 
     public Review createForRecipe(Long recipeId, ReviewCreateDto dto) {
         Recipe recipe = recipeService.getById(recipeId);
-        User reviewer = userService.getById(dto.getUserId()); // ✅ NEW
+        User reviewer = userService.getById(dto.getUserId());
 
         Review review = new Review();
         review.setComment(dto.getComment());
         review.setRating(dto.getRating());
         review.setRecipe(recipe);
-        review.setReviewer(reviewer); // ✅ NEW
+        review.setReviewer(reviewer);
 
         return reviewRepository.save(review);
     }

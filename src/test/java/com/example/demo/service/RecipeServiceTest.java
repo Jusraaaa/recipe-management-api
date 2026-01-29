@@ -62,7 +62,7 @@ class RecipeServiceTest {
         CategoryEntity cat = new CategoryEntity();
         when(categoryService.getById(1L)).thenReturn(cat);
 
-        // repository save kthen nje Recipe
+
         when(recipeRepository.save(any(Recipe.class))).thenAnswer(inv -> inv.getArgument(0));
 
         Recipe saved = recipeService.create(dto);

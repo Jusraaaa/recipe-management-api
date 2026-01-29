@@ -24,10 +24,10 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // mos i mbush dy herë
+
         if (recipeRepository.count() > 0) return;
 
-        // 👉 krijo kategoritë
+
         CategoryEntity breakfast = categoryRepository.save(
                 new CategoryEntity("BREAKFAST")
         );

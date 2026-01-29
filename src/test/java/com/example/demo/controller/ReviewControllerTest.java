@@ -35,13 +35,13 @@ class ReviewControllerTest {
         recipe.setId(1L);
 
         User user = new User();
-        // nuk kemi setId() te User, s’na duhet për këtë test
+
 
         Review r = new Review();
         r.setComment("Great!");
         r.setRating(5);
         r.setRecipe(recipe);
-        r.setReviewer(user); // ✅ NEW
+        r.setReviewer(user);
         return r;
     }
 
@@ -50,7 +50,7 @@ class ReviewControllerTest {
         ReviewCreateDto dto = new ReviewCreateDto();
         dto.setComment("Great!");
         dto.setRating(5);
-        dto.setUserId(1L); // ✅ NEW
+        dto.setUserId(1L);
 
         Mockito.when(reviewService.createForRecipe(eq(1L), any(ReviewCreateDto.class)))
                 .thenReturn(fullReview());
@@ -74,7 +74,7 @@ class ReviewControllerTest {
     void getAverageRating_shouldReturn200() throws Exception {
         Mockito.when(reviewService.getAverageRating(1L)).thenReturn(4.5);
 
-        mockMvc.perform(get("/recipes/1/average-rating")) // ✅ FIXED endpoint
+        mockMvc.perform(get("/recipes/1/average-rating"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("4.5"));
     }

@@ -23,7 +23,7 @@ public class RecipeCreateDto {
     @NotNull(message = "Category id is required")
     private Long categoryId;
 
-    // ✅ NEW: Ingredient IDs for real relationship
+
     private List<Long> ingredientIds;
 
     public RecipeCreateDto() {}

@@ -19,7 +19,7 @@ public class Recipe {
     @Column(nullable = false)
     private String name;
 
-    // ✅ E LËMË si tekst (mos me prish kodin ekzistues)
+
     @NotBlank(message = "Ingredients are required")
     @Column(nullable = false, length = 2000)
     private String ingredients;
@@ -36,7 +36,7 @@ public class Recipe {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
-    // ✅ NEW: Real relationship Recipe <-> Ingredient
+
     @ManyToMany
     @JoinTable(
             name = "recipe_ingredients",

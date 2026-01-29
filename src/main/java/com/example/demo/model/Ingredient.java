@@ -18,7 +18,7 @@ public class Ingredient {
     @Column(nullable = false)
     private String name;
 
-    // ✅ OPTIONAL: bidirectional mapping
+
     @ManyToMany(mappedBy = "ingredientEntities")
     private Set<Recipe> recipes = new HashSet<>();
 
